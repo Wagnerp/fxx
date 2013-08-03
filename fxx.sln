@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libfxx", "libfxx\libfxx.csproj", "{7E58D287-CE85-4221-A616-AC607B63A513}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fxx-cli", "fxx-cli\fxx-cli.csproj", "{86742E0C-4A72-4734-9B42-6AE6F4EB8DD8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E58D287-CE85-4221-A616-AC607B63A513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E58D287-CE85-4221-A616-AC607B63A513}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E58D287-CE85-4221-A616-AC607B63A513}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E58D287-CE85-4221-A616-AC607B63A513}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86742E0C-4A72-4734-9B42-6AE6F4EB8DD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86742E0C-4A72-4734-9B42-6AE6F4EB8DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86742E0C-4A72-4734-9B42-6AE6F4EB8DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86742E0C-4A72-4734-9B42-6AE6F4EB8DD8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = libfxx\libfxx.csproj
+	EndGlobalSection
+EndGlobal
