@@ -2,6 +2,7 @@ using System;
 using libfxx.persistence;
 using System.Collections.Generic;
 using libfxx.iface;
+using System.Linq;
 
 namespace libfxx.core
 {
@@ -16,6 +17,8 @@ namespace libfxx.core
 		private const string UNIDENTIFIED = "Unknown component or version";
 		private const string PARENT_MISSING = "Associated product details missing";
 		private const string MULTI_IDENT = "Recognised shared component";
+		private const string PATCHED_VERSION = "Patched version of {0}";
+		private const string GUESS_WARNING = "HEURISTIC GUESS";
 
 		private IDatabase m_dbDatabase;
 
@@ -167,8 +170,30 @@ namespace libfxx.core
 						}
 					}
 				}
-				
-				return new UnidentifiedProduct();
+
+				// Order the dictionary by votes
+
+				Dictionary<string, int> dicOrdered = dicVotes.OrderBy(x => x.Value).
+					ToDictionary(pair => pair.Key, pair => pair.Value);
+
+				// Load the most likely product
+				Product prdLikely = 
+					m_dbDatabase.LoadProduct(dicOrdered.Keys.First()); 
+
+				// Create a new unidentified product and make it use the name
+				// and version of the likely product - but make it clear this
+				// is a guess
+
+				Product prdModified = new UnidentifiedProduct();
+				prdModified.Name = String.Format(PATCHED_VERSION, prdLikely.Name);
+				prdModified.Architecture = prdLikely.Architecture;
+				prdModified.Build = prdLikely.Build;
+				prdModified.Platform = prdLikely.Platform;
+				prdModified.State = ModificationState.Modified;
+				prdModified.Type = GUESS_WARNING;
+				prdModified.Version = prdLikely.Version;
+
+				return prdModified;
 			} 
 			catch (Exception ex) 
 			{

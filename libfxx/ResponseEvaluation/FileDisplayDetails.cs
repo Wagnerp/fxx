@@ -64,7 +64,7 @@ namespace libfxx.core
 
 		public override string ToString()
 		{
-			return String.Format("{0,-30}{1,-9}{2,65}", 
+			return String.Format("{0,-30}{1,-9}{2,-40}", 
 			                     Name, TruncatedHash.Substring(0, 7),
 			                     Status);
 		}

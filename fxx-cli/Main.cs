@@ -100,7 +100,8 @@ namespace fxxcli
 					Console.ForegroundColor = ConsoleColor.Green;
 				}
 
-				Console.WriteLine("= {0}", irResults.Product.ToLongString());
+				Console.WriteLine("{0}", irResults.Product.ToLongString());
+				Console.WriteLine("({0})", instProduct.Hash);
 				Console.ForegroundColor = ConsoleColor.White;
 				Console.WriteLine();
 
