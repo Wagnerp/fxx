@@ -19,7 +19,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Externalconsole>True</Externalconsole>
-    <Commandlineparameters>/Users/David/Dev/varcars/build/env http://localhost:5984</Commandlineparameters>
+    <Commandlineparameters>/Users/David/Dev/varcars/build/env http://192.168.0.9:5984</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>

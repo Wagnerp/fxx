@@ -18,4 +18,8 @@ Enter fxx: this tool allows the construction of a hash repository to identify di
 
 ##Status
 
-fxx is very much work in progress. The skeleton is functional but there is currently no usable interface.
+fxx is very much work in progress. The command line version (fxx-cli) is now usable for identifying and submitting product details. However, it is still missing some important features:
+
+- There is not yet any unattended mode (e.g. for submitting hashes from build machines)
+- There is no file extension filtering
+- The client fails to warn if a file matches on hash but not on name (i.e. a file of the same hash is known but does not match the filename on disk)

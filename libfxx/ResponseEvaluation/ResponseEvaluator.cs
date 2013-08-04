@@ -19,6 +19,7 @@ namespace libfxx.core
 		private const string MULTI_IDENT = "Recognised shared component";
 		private const string PATCHED_VERSION = "Patched version of {0}";
 		private const string GUESS_WARNING = "HEURISTIC GUESS";
+		private const string UNKNOWN_PRODUCT = "Unknown";
 
 		private IDatabase m_dbDatabase;
 
@@ -171,14 +172,30 @@ namespace libfxx.core
 					}
 				}
 
-				// Order the dictionary by votes
+				// If there are no candidates at all, we have no idea what the
+				// product is
 
+				if (dicVotes.Count == 0)
+				{
+					Product prdFail = new UnidentifiedProduct();
+					prdFail.Name = UNKNOWN_PRODUCT;
+					prdFail.Architecture = "?";
+					prdFail.Build = UNKNOWN_PRODUCT;
+					prdFail.Platform = "?";
+					prdFail.State = ModificationState.Original;
+					prdFail.Type = UNKNOWN_PRODUCT;
+					prdFail.Version = UNKNOWN_PRODUCT;
+					
+					return prdFail;
+				}
+
+				// Order the dictionary by votes
 				Dictionary<string, int> dicOrdered = dicVotes.OrderBy(x => x.Value).
 					ToDictionary(pair => pair.Key, pair => pair.Value);
 
 				// Load the most likely product
 				Product prdLikely = 
-					m_dbDatabase.LoadProduct(dicOrdered.Keys.First()); 
+					m_dbDatabase.LoadProduct(dicOrdered.Keys.Last()); 
 
 				// Create a new unidentified product and make it use the name
 				// and version of the likely product - but make it clear this

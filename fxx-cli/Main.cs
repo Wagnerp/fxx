@@ -26,7 +26,7 @@ namespace fxxcli
 		{
 			IDatabase dbConnection = null;
 
-			if (args.Length != 2)
+			if (args.Length != 2 && args.Length != 3)
 			{
 				ShowUsage ();
 				return;
@@ -69,7 +69,6 @@ namespace fxxcli
 					spiIdentifier.Identify(instProduct, dbConnection);
 
 				// Iterate each file in the results
-
 				foreach(FileDisplayDetails fddDetails in irResults.Files)
 				{
 					// Determine text colour by state
@@ -82,7 +81,7 @@ namespace fxxcli
 						Console.ForegroundColor = ConsoleColor.DarkGreen;
 						break;
 					case FileDisplayFlag.Unrecognised:
-						Console.ForegroundColor = ConsoleColor.DarkRed;
+						Console.ForegroundColor = ConsoleColor.Red;
 						break;
 					}
 
@@ -91,6 +90,7 @@ namespace fxxcli
 
 				Console.WriteLine();
 
+				// Change text colour depending on whether total hash is recognised
 				if (irResults.Product is UnidentifiedProduct)
 				{
 					Console.ForegroundColor = ConsoleColor.Red;
@@ -105,9 +105,25 @@ namespace fxxcli
 				Console.ForegroundColor = ConsoleColor.White;
 				Console.WriteLine();
 
+				// If we have three arguments and the third one is to submit
+				// details, and we have an unidentified product, then prompt
+				// for product details
 
+				if (args.Length == 3 && args[2] == "-submit")
+				{
+					if (irResults.Product is UnidentifiedProduct)
+					{
+						Product prdNewProduct = irResults.Response.Product;
+						prdNewProduct.Name = PromptForText("Product name");
+						prdNewProduct.Version = PromptForText("Product version");
+						prdNewProduct.Build = PromptForText("Product build");
+						prdNewProduct.Platform = PromptForText("Product platform");
+						prdNewProduct.Architecture = PromptForText("Product architecture");
+						prdNewProduct.Type = PromptForText("Product type (e.g. beta)");
+						spiIdentifier.SaveResults(irResults, dbConnection);
 
-//				spiIdentifier.SaveResults(irResults, dbConnection);
+					}
+				}
 
 			}
 			catch (Exception ex)
@@ -124,6 +140,11 @@ namespace fxxcli
 
 		}
 
+		private static string PromptForText (string strProperty)
+		{
+			Console.Write("{0}> ", strProperty);
+			return Console.ReadLine();
+		}
 
 		/// <summary>
 		/// Show the usage text for fxx-cli

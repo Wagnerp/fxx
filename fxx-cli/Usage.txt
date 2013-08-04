@@ -3,10 +3,13 @@ fxx - identify file versions and product versions based upon file hashes.
 Copyright David Roberts 2013(C)
 
 
-usage: fxx-cli <installation directory> <database server> 
+usage: fxx-cli <installation directory> <database server> [-submit]
 
-Identifies the specified installation and/or optionally adds the details of 
-each file to the database specified by the database server argument.
+Identifies the specified installation by comparison with the CouchDB database
+specified by the server argument.
+
+Using the -submit option will interactively prompt for product details if an 
+unidentified set of files is found.
  
-example: fxx-cli /myprogram/ http://localhost:5984
+example: fxx-cli /myprogram/ http://localhost:5984 -submit
 
