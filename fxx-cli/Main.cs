@@ -19,8 +19,12 @@ namespace fxxcli
 			InstallationAuditor iaAuditor = 
 				new InstallationAuditor(db, new Sha1HashCalculator());
 		
-			iaAuditor.Audit(inst);
+			AuditResponse arResponse = iaAuditor.Audit(inst);
 
+			AuditResponseEvaluator areEval = new AuditResponseEvaluator();
+			areEval.Evaluate(arResponse);
+
+			iaAuditor.Save(arResponse);
 
 
 //			FileHashCalculator fhcFileHasher = new FileHashCalculator(new Sha1HashCalculator());

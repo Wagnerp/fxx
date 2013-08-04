@@ -1,5 +1,6 @@
 using System;
 using Newtonsoft.Json;
+using libfxx.core;
 
 namespace libfxx.persistence
 {
@@ -76,8 +77,20 @@ namespace libfxx.persistence
 			set;
 		}
 
+		/// <summary>
+		/// The modification state of the product (if any)
+		/// </summary>
+
+		[JsonIgnore]
+		public ModificationState State 
+		{
+			get;
+			set;
+		}
+
 		public Product ()
 		{
+			State = ModificationState.Original;
 		}
 	}
 }

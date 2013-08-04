@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using libfxx.iface;
+using System.Linq;
 
 namespace libfxx.core
 {
@@ -32,7 +33,15 @@ namespace libfxx.core
 
 		public string Calculate (string strFilename)
 		{
-			return m_hcCalculator.Calculate(File.ReadAllBytes(strFilename));
+			try
+			{
+				return m_hcCalculator.Calculate (File.ReadAllBytes (strFilename));
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(String.Format("Failed to calculate hash " +
+				           "of file [{0}]", strFilename), ex);
+			}
 		}
 
 		/// <summary>
@@ -43,15 +52,24 @@ namespace libfxx.core
 
 		public IDictionary<FileInfo, string> Calculate (IEnumerable<string> enPaths)
 		{
-			Dictionary<FileInfo, string> dicResults = new Dictionary<FileInfo, string>();
-
-			foreach (string strFilename in enPaths) 
+			try
 			{
-				FileInfo fiInfo = new FileInfo(strFilename);
-				dicResults.Add(fiInfo, Calculate(strFilename));
-			}
+				Dictionary<FileInfo, string> dicResults = 
+					new Dictionary<FileInfo, string> ();
 
-			return dicResults;
+				foreach (string strFilename in enPaths)
+				{
+					FileInfo fiInfo = new FileInfo (strFilename);
+					dicResults.Add (fiInfo, Calculate (strFilename));
+				}
+
+				return dicResults;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(String.Format("Failed to calculate hash " +
+                                  "of [{0}] files", enPaths.Count()), ex);
+			}
 		}
 
 		/// <summary>
@@ -62,7 +80,15 @@ namespace libfxx.core
 
 		public string CalculateSnowball (IEnumerable<string> enHashes)
 		{
-			return m_sbhSnowball.Calculate(enHashes);
+			try
+			{
+				return m_sbhSnowball.Calculate (enHashes);
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(String.Format("Failed to calculate snowball " +
+				                   "hash of [{0}] files", enHashes.Count()), ex);
+			}
 		}
 
 

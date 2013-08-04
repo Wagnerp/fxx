@@ -17,18 +17,27 @@ namespace libfxx.persistence
 		/// </summary>
 		/// <param name="strHost">Protocol hostname and port to connect to</param>
 
-		public void Connect(string strHost)
+		public void Connect (string strHost)
 		{
-			m_connConnection = new Connection(new Uri(strHost));
-
-			// Create the database if necessary
-			if (!m_connConnection.ListDatabases().Contains(DATABASE_NAME))
+			try
 			{
-				m_connConnection.CreateDatabase(DATABASE_NAME);
-			}
+				m_connConnection = new Connection (new Uri (strHost));
 
-			// Attach our session to the fxx database
-			m_sesSession = m_connConnection.CreateSession(DATABASE_NAME);
+				// Create the database if necessary
+				if (!m_connConnection.ListDatabases ().Contains (DATABASE_NAME))
+				{
+					m_connConnection.CreateDatabase (DATABASE_NAME);
+				}
+
+				// Attach our session to the fxx database
+				m_sesSession = m_connConnection.CreateSession (DATABASE_NAME);
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(
+					String.Format("Failed to connect to database [{0}] on " +
+				              "host [{1}]", DATABASE_NAME, strHost), ex);
+			}
 		}
 
 		/// <summary>
@@ -38,7 +47,16 @@ namespace libfxx.persistence
 
 		public void SaveProduct (Product prdProduct)
 		{
-			m_sesSession.Save(prdProduct, prdProduct.Hash);
+			try
+			{
+				m_sesSession.Save (prdProduct, prdProduct.Hash);
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(
+					String.Format("Failed to save product [{0}]",
+				              prdProduct.Name), ex);
+			}
 		}
 
 		/// <summary>
@@ -56,8 +74,10 @@ namespace libfxx.persistence
 				
 				return prdProduct;
 			} 
-			catch (CouchException cex) 
+			catch
 			{
+				// If for any reason we can't retrieve, assume product doesn't
+				// exist
 				return null;
 			}
 		}
@@ -67,9 +87,18 @@ namespace libfxx.persistence
 		/// </summary>
 		/// <param name="compComponent">Component details to save</param>
 
-		public void SaveComponent(Component compComponent)
+		public void SaveComponent (Component compComponent)
 		{
-			m_sesSession.Save(compComponent, compComponent.Hash);
+			try
+			{
+				m_sesSession.Save (compComponent, compComponent.Hash);
+			}
+			catch (Exception ex)
+			{
+				throw new Exception (
+					String.Format ("Failed to save component [{0}]",
+				              compComponent.Name), ex);
+			}
 		}
 
 		/// <summary>
@@ -86,10 +115,12 @@ namespace libfxx.persistence
 				compComponent.Hash = strHash;
 
 				return compComponent;
-
 			} 
-			catch (CouchException cex) 
+			catch
 			{
+				// If for any reason we can't retrieve, assume component doesn't
+				// exist
+			
 				return null;
 			}
 		}

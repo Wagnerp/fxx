@@ -20,11 +20,19 @@ namespace libfxx.core
 		#region IHashCalculator implementation
 		public string Calculate (byte[] bufBuffer)
 		{
-			byte[] arrHash = m_cspProvider.ComputeHash(bufBuffer);
-			string strStringHash = BitConverter.ToString(arrHash);
+			try
+			{
+				byte[] arrHash = m_cspProvider.ComputeHash (bufBuffer);
+				string strStringHash = BitConverter.ToString (arrHash);
 
-			// Remove dashes from hash
-			return strStringHash.Replace("-", String.Empty);
+				// Remove dashes from hash
+				return strStringHash.Replace ("-", String.Empty);
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Failed to calculate SHA1 hash of buffer",
+				                    ex);
+			}
 		}
 		#endregion
 	}

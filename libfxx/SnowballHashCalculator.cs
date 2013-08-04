@@ -2,6 +2,7 @@ using System;
 using libfxx.iface;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace libfxx.core
 {
@@ -30,17 +31,29 @@ namespace libfxx.core
 
 		public string Calculate (IEnumerable<string> enHashes)
 		{
-			StringBuilder sbCombinedHash = new StringBuilder ();
-
-			foreach (string strHash in enHashes) 
+			try
 			{
-				sbCombinedHash.Append(strHash);
+				StringBuilder sbCombinedHash = new StringBuilder ();
+
+				// Construct a giant digest of all hashes in a single string
+				foreach (string strHash in enHashes)
+				{
+					sbCombinedHash.Append (strHash);
+				}
+
+				// Create a string
+				string strCombinedHash = sbCombinedHash.ToString ();
+
+				// Turn into bytes
+				byte[] arrHashInBytes = System.Text.Encoding.Unicode.GetBytes (strCombinedHash);
+
+				// Hash the bytes
+				return m_hcCalculator.Calculate (arrHashInBytes);
 			}
-
-			string strCombinedHash = sbCombinedHash.ToString();
-			byte[] arrHashInBytes = System.Text.Encoding.Unicode.GetBytes(strCombinedHash);
-
-			return m_hcCalculator.Calculate(arrHashInBytes);
+			catch (Exception ex)
+			{
+				throw new Exception("Failed to calculate snowball hash", ex);
+			}
 		}
 	}
 }

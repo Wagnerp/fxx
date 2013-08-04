@@ -52,6 +52,8 @@
     <Compile Include="InstallationAuditor.cs" />
     <Compile Include="AuditResponse.cs" />
     <Compile Include="UnidentifiedProduct.cs" />
+    <Compile Include="AuditResponseEvaluator.cs" />
+    <Compile Include="ModificationState.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

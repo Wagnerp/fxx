@@ -52,6 +52,7 @@ namespace libfxx.persistence
 		{
 			Products = new List<string>();
 		}
+
 	}
 }
 

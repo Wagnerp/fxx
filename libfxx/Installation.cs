@@ -64,14 +64,25 @@ namespace libfxx.core
 		/// <param name="hcCalculator">Calculator for creating hashes</param>
 		/// <returns>Total hash of the installation</returns>
 
-		public string CalculateHash(IHashCalculator hcCalculator)
+		public string CalculateHash (IHashCalculator hcCalculator)
 		{
-			FileHashCalculator fhcCalculator = new FileHashCalculator(hcCalculator);
+			try
+			{
+				FileHashCalculator fhcCalculator = new FileHashCalculator (hcCalculator);
 
-			m_dicFiles = fhcCalculator.Calculate(Directory.EnumerateFiles(Path));
-			Hash = fhcCalculator.CalculateSnowball(Files.Values);
+				// Calculate file hashes
+				m_dicFiles = fhcCalculator.Calculate (Directory.EnumerateFiles (Path));
 
-			return Hash;
+				// Calculate overall hash
+				Hash = fhcCalculator.CalculateSnowball (Files.Values);
+
+				return Hash;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(String.Format("Failed to calculate hash " +
+				              "for installation at [{0}]", Path), ex);
+			}
 		}
 
 
