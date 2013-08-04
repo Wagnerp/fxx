@@ -1,5 +1,7 @@
 #fxx 
 
+![fxx-cli in action](http://ombsoft.com/hash.png)
+
 *Because f(x)=x*
 
 Identify file versions and product versions based upon file hashes.
