@@ -26,7 +26,7 @@ namespace libfxx.core
 				string strStringHash = BitConverter.ToString (arrHash);
 
 				// Remove dashes from hash
-				return strStringHash.Replace ("-", String.Empty);
+				return strStringHash.Replace ("-", String.Empty).ToLower();
 			}
 			catch (Exception ex)
 			{

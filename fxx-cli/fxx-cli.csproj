@@ -19,6 +19,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Externalconsole>True</Externalconsole>
+    <Commandlineparameters>/Users/David/Dev/varcars/build/env http://localhost:5984</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -41,5 +42,8 @@
       <Project>{7E58D287-CE85-4221-A616-AC607B63A513}</Project>
       <Name>libfxx</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Usage.txt" />
   </ItemGroup>
 </Project>

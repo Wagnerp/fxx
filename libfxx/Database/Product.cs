@@ -92,6 +92,28 @@ namespace libfxx.persistence
 		{
 			State = ModificationState.Original;
 		}
+
+		/// <summary>
+		/// Format a simple string version of the product 
+		/// </summary>
+		/// <returns>Short string version of the product details</returns>
+		
+		public string ToShortString()
+		{
+			return String.Format("{0} {1} {2} ({3})", Name, Version, Build,
+			                     Architecture);
+		}
+
+		/// <summary>
+		/// Format a simple complete version of the product 
+		/// </summary>
+		/// <returns>Long string version of the product details</returns>
+
+		public string ToLongString()
+		{
+			return String.Format("{0} {1} {2} ({3} {4}) - {5}", Name, Version, Build,
+			                     Platform, Architecture, Type);
+		}
 	}
 }
 

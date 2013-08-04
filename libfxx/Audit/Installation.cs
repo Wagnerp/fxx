@@ -12,6 +12,7 @@ namespace libfxx.core
 
 	public class Installation
 	{
+		private const string TOTAL_DIFFERENTIATOR = "=";
 		private IDictionary<FileInfo, string> m_dicFiles;
 
 		/// <summary>
@@ -73,8 +74,14 @@ namespace libfxx.core
 				// Calculate file hashes
 				m_dicFiles = fhcCalculator.Calculate (Directory.EnumerateFiles (Path));
 
-				// Calculate overall hash
-				Hash = fhcCalculator.CalculateSnowball (Files.Values);
+				// Calculate overall hash.
+				//
+				// We prefix the overall hash so that an installation made up
+				// only a single file does not have conflicting product and 
+				// component hashes
+
+				Hash = String.Format("{0}{1}", TOTAL_DIFFERENTIATOR,
+					fhcCalculator.CalculateSnowball (Files.Values));
 
 				return Hash;
 			}

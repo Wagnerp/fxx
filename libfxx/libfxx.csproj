@@ -40,20 +40,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="IHashCalculator.cs" />
-    <Compile Include="Sha1HashCalculator.cs" />
-    <Compile Include="FileHashCalculator.cs" />
-    <Compile Include="SnowballHashCalculator.cs" />
-    <Compile Include="IDatabase.cs" />
-    <Compile Include="CouchDatabase.cs" />
-    <Compile Include="Component.cs" />
-    <Compile Include="Product.cs" />
-    <Compile Include="Installation.cs" />
-    <Compile Include="InstallationAuditor.cs" />
-    <Compile Include="AuditResponse.cs" />
-    <Compile Include="UnidentifiedProduct.cs" />
-    <Compile Include="AuditResponseEvaluator.cs" />
-    <Compile Include="ModificationState.cs" />
+    <Compile Include="Audit\AuditResponse.cs" />
+    <Compile Include="Audit\InstallationAuditor.cs" />
+    <Compile Include="Database\Component.cs" />
+    <Compile Include="Database\IDatabase.cs" />
+    <Compile Include="Database\CouchDatabase.cs" />
+    <Compile Include="Database\Product.cs" />
+    <Compile Include="Database\UnidentifiedProduct.cs" />
+    <Compile Include="Hash\FileHashCalculator.cs" />
+    <Compile Include="Hash\IHashCalculator.cs" />
+    <Compile Include="Audit\Installation.cs" />
+    <Compile Include="ResponseEvaluation\ResponseEvaluator.cs" />
+    <Compile Include="ResponseEvaluation\IdentificationResults.cs" />
+    <Compile Include="ResponseEvaluation\FileDisplayDetails.cs" />
+    <Compile Include="Database\ModificationState.cs" />
+    <Compile Include="Hash\Sha1HashCalculator.cs" />
+    <Compile Include="Hash\SnowballHashCalculator.cs" />
+    <Compile Include="ResponseEvaluation\IProductIdentifier.cs" />
+    <Compile Include="ResponseEvaluation\SimpleProductIdentifier.cs" />
+    <Compile Include="ResponseEvaluation\FileDisplayFlag.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Audit\" />
+    <Folder Include="Database\" />
+    <Folder Include="Hash\" />
+    <Folder Include="ResponseEvaluation\" />
+  </ItemGroup>
 </Project>

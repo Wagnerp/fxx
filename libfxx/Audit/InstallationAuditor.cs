@@ -41,7 +41,7 @@ namespace libfxx.core
 		{
 			m_dbDatabase = dbDatabase;
 			m_hcCalculator = hcCalculator;
-			RetrieveComponentsOnSuccessfulMatch = false;
+			RetrieveComponentsOnSuccessfulMatch = true;
 		}
 
 		/// <summary>
@@ -150,6 +150,12 @@ namespace libfxx.core
 		{
 			try
 			{
+				// TODO: Seriously need to consider ordering/save conflicts 
+				// by using the database's revision identifier. 
+				//
+				// Shouldn't be an issue for small time use but should fix
+				//
+
 				Product prdProduct = arResponse.Product;
 
 				// Save the product

@@ -1,0 +1,12 @@
+
+fxx - identify file versions and product versions based upon file hashes. 
+Copyright David Roberts 2013(C)
+
+
+usage: fxx-cli <installation directory> <database server> 
+
+Identifies the specified installation and/or optionally adds the details of 
+each file to the database specified by the database server argument.
+ 
+example: fxx-cli /myprogram/ http://localhost:5984
+
